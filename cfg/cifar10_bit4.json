@@ -1,0 +1,22 @@
+{
+  "DATASET": "Cifar10",
+  "MODEL": "model.mine.IntegerCifar10Net",
+  "MODEL_PARAM": {
+    "img_size": [
+      32,
+      32,
+      3
+    ],
+    "num_classes": 10,
+    "quan_bits": 4,
+    "acc_bits": 16
+  },
+  "SAVE_PREFIX": "cifar10_bit4",
+  "EPOCHS": 500,
+  "BATCH_SIZE": 512,
+  "LR": 0.1,
+  "USE_LR_SCH": 1,
+  "LR_FIN": 0.001
+}
+
+

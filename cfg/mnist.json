@@ -1,0 +1,20 @@
+{
+  "DATASET": "mnist",
+  "MODEL": "model.mine.MnistNet",
+  "MODEL_PARAM": {
+    "img_size": [
+      28,
+      28,
+      1
+    ],
+    "num_classes": 10
+  },
+  "SAVE_PREFIX": "mnist",
+  "EPOCHS": 100,
+  "BATCH_SIZE": 1024,
+  "LR": 0.01,
+  "USE_LR_SCH": 1,
+  "LR_FIN": 0.001
+}
+
+

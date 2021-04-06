@@ -1,0 +1,21 @@
+{
+  "DATASET": "Cifar100",
+  "MODEL": "model.mine.IntegerCifar100Net",
+  "MODEL_PARAM": {
+    "img_size": [
+      32,
+      32,
+      3
+    ],
+    "num_classes": 100,
+    "n_bits": 4
+  },
+  "SAVE_PREFIX": "cifar100_bit4",
+  "EPOCHS": 500,
+  "BATCH_SIZE": 512,
+  "LR": 0.1,
+  "USE_LR_SCH": 1,
+  "LR_FIN": 0.001
+}
+
+
