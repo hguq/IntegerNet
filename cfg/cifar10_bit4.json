@@ -8,8 +8,7 @@
       3
     ],
     "num_classes": 10,
-    "quan_bits": 4,
-    "acc_bits": 16
+    "n_bits": 4
   },
   "SAVE_PREFIX": "cifar10_bit4",
   "EPOCHS": 500,

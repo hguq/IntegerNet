@@ -12,10 +12,10 @@
   },
   "SAVE_PREFIX": "mnist_bit8",
   "EPOCHS": 100,
-  "BATCH_SIZE": 1024,
-  "LR": 0.1,
+  "BATCH_SIZE": 512,
+  "LR": 1,
   "USE_LR_SCH": 1,
-  "LR_FIN": 0.01
+  "LR_FIN": 0.1
 }
 
 

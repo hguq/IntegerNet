@@ -10,15 +10,15 @@ class QuanResidualBlock(nn.Module):
         super().__init__()
 
         self.residual_function = nn.Sequential(
-            QuanConv(n_bits, in_channel, out_channel, kernel_size=3, stride=2 if down_sample else 1, padding=1),
+            QuantizeConv(n_bits, in_channel, out_channel, kernel_size=3, stride=2 if down_sample else 1, padding=1),
             nn.ReLU(),
-            QuanConv(n_bits, out_channel, out_channel, kernel_size=3, stride=1, padding=1)
+            QuantizeConv(n_bits, out_channel, out_channel, kernel_size=3, stride=1, padding=1)
         )
         self.shortcut = nn.Sequential()
 
         if down_sample:
             self.shortcut = nn.Sequential(
-                QuanConv(n_bits, in_channel, out_channel, kernel_size=1, stride=2, padding=0)
+                QuantizeConv(n_bits, in_channel, out_channel, kernel_size=1, stride=2, padding=0)
             )
 
     def forward(self, x):
@@ -31,7 +31,7 @@ class IntegerResNet(torch.nn.Module):
         super().__init__()
 
         self.res = Sequential(
-            QuanConv(n_bits=n_bits, in_channels=img_size[2], out_channels=64, kernel_size=3, stride=1, padding=1),
+            QuantizeConv(n_bits=n_bits, in_channels=img_size[2], out_channels=64, kernel_size=3, stride=1, padding=1),
             ReLU(),
 
             QuanResidualBlock(n_bits, 64, 64, down_sample=False),
@@ -49,8 +49,8 @@ class IntegerResNet(torch.nn.Module):
 
         n_feature = img_size[0] * img_size[1] // 64 * 512
         self.fc = Sequential(
-            QuanFc(n_bits, n_feature, 512),
-            QuanFc(n_bits, 512, num_classes)
+            QuantizeFc(n_bits, n_feature, 512),
+            QuantizeFc(n_bits, 512, num_classes)
         )
 
     def forward(self, x):

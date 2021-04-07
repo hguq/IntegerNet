@@ -6,10 +6,20 @@ from tensorboardX import SummaryWriter
 import time
 
 
-def get_bounds(n_bits):
-    upper_bound = 2 ** (n_bits - 1) - 1
-    lower_bound = -upper_bound
-    return lower_bound, upper_bound
+def get_bounds(n_bits, signed=True):
+    """
+    Produce a tuple of integer: (-2^(n_bits-1)+1,2^(n_bits)-1)
+    :param n_bits: n bits.
+    :return: tuple
+    """
+    if signed:
+        upper_bound = 2 ** (n_bits - 1) - 1
+        lower_bound = -upper_bound
+        return lower_bound, upper_bound
+    else:
+        lower_bound = 0
+        upper_bound = 2 ** n_bits - 1
+        return lower_bound, upper_bound
 
 
 class MyBatchNorm(nn.Module, ABC):

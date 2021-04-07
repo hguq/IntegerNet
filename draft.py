@@ -1,7 +1,7 @@
 from layer.quantize import get_normal_weight
-from matplotlib import pyplot as plt
+import torch
 
-x = get_normal_weight((100000,), 4)
-
-plt.hist(x.cpu().numpy(),bins=1000)
-plt.show()
+a = torch.ones(10)
+b = a
+b = b / 2
+print(a)

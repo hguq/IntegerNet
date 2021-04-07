@@ -5,24 +5,24 @@ from layer import *
 class IntegerMnistNet(torch.nn.Module):
     def __init__(self, img_size, num_classes, n_bits):
         super().__init__()
-        self.conv = torch.nn.Sequential(
-            QuanConv(n_bits, img_size[2], 16, 3, 1, 1, quantize_act=None),
+        self.conv = Sequential(
+            QuantizeConv(n_bits, img_size[2], 16, 3, 1, 1, quantize_act=None),
             QuantizeSignedAct(n_bits=n_bits, num_features=16),
             ReLU(),
             MaxPool2d(2, 2),
 
-            QuanConv(n_bits, 16, 16, 3, 1, 1, quantize_act=None),
+            QuantizeConv(n_bits, 16, 16, 3, 1, 1, quantize_act=None),
             QuantizeSignedAct(n_bits=n_bits, num_features=16),
             ReLU(),
             MaxPool2d(2, 2),
         )
 
         self.fc = Sequential(
-            QuanFc(n_bits, img_size[0] * img_size[1] // 16 * 16, 128, quantize_act=None),
+            QuantizeFc(n_bits, img_size[0] * img_size[1] // 16 * 16, 128, quantize_act=None),
             QuantizeSignedAct(n_bits=n_bits, num_features=128, is_conv=False),
             ReLU(),
 
-            QuanFc(n_bits, 128, num_classes, quantize_act=None),
+            QuantizeFc(n_bits, 128, num_classes, quantize_act=None),
         )
 
     def forward(self, x):

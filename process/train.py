@@ -35,7 +35,7 @@ def train_one_epoch(model, dataloader, opt, batch_size=512, lr_sch=None, epoch=N
         top1_correct += torch.eq(top1, batch_label).sum().item()
         top1_rate = top1_correct / (batch_size * batch_ind + batch_label.numel())
 
-        _, top5 = torch.topk(predict, 5, 1)
+        _, top5 = torch.topk(predict, k=5, dim=1)
         top5_correct += torch.eq(top5, batch_label.view(-1, 1)).sum().item()
         top5_rate = top5_correct / (batch_size * batch_ind + batch_label.numel())
 
