@@ -50,7 +50,81 @@ class LimitAcc(nn.Module):
         return STEClamp.apply(x, *get_bounds(self.n_bits, self.signed))
 
 
-class QuantizeSignedAct(nn.Module):
+class QuantizeSignedActSBN(nn.Module):
+    def __init__(self, n_bits, num_features, is_conv=True, decay=0.9, adaptive=False):
+        super().__init__()
+        self.n_bits = n_bits
+        self.num_features = num_features
+        self.is_conv = is_conv
+        self.decay = decay
+        self.adaptive = adaptive
+
+        if is_conv:
+            self.reduce_dim = (0, 2, 3)
+            self.buffer_size = (1, self.num_features, 1, 1)
+        else:
+            self.reduce_dim = (0,)
+            self.buffer_size = (1, self.num_features)
+
+        if self.adaptive:
+            self.gamma = nn.Parameter(torch.zeros(self.buffer_size))
+            self.beta = nn.Parameter(torch.zeros(self.buffer_size))
+
+        self.register_buffer("running_mean", torch.zeros(self.buffer_size), persistent=False)
+        self.register_buffer("running_std", torch.zeros(self.buffer_size), persistent=False)
+
+        self.register_buffer("bias", torch.zeros(self.buffer_size), persistent=True)
+        self.register_buffer("shift", torch.zeros(self.buffer_size), persistent=True)
+
+        self.hot = False
+
+    def _update_buffer(self, cur_mean, cur_std):
+        with torch.no_grad():
+            if self.hot:
+                self.running_mean = self.running_mean * self.decay + cur_mean * (1 - self.decay)
+                self.running_std = self.running_std * self.decay + cur_std * (1 - self.decay)
+            else:
+                self.running_mean.copy_(cur_mean)
+                self.running_std.copy_(cur_std)
+                self.hot = True
+
+    def train(self, mode=True):
+        super().train(mode)
+        if not mode:
+            self._prepare_eval()
+
+    def _prepare_eval(self):
+        if self.adaptive:
+            self.bias = torch.round(self.running_mean + self.gamma)
+            self.shift = self.n_bits - 3 + torch.round(-torch.log2(self.running_std) + self.beta)
+        else:
+            self.bias = torch.round(self.running_mean)
+            self.shift = self.n_bits - 3 + torch.round(-torch.log2(self.running_std))
+
+    def forward(self, x):
+        if self.training:
+            cur_mean, cur_std = x.mean(dim=self.reduce_dim, keepdim=True), x.std(dim=self.reduce_dim, keepdim=True)
+            self._update_buffer(cur_mean, cur_std)
+
+            if self.adaptive:
+                cur_bias = STERound.apply(cur_mean + self.gamma)
+                cur_shift = self.n_bits - 3 + STERound.apply(-torch.log2(cur_std) + self.beta)
+            else:
+                cur_bias = STERound.apply(cur_mean)
+                cur_shift = self.n_bits - 3 + STERound.apply(-torch.log2(cur_std))
+
+            return STEClamp.apply(
+                STEFloor.apply((x - cur_bias) * 2 ** cur_shift),
+                *get_bounds(self.n_bits, signed=True)
+            )
+        else:
+            return torch.clamp(
+                torch.floor((x - self.bias) * 2 ** self.shift),
+                *get_bounds(self.n_bits, signed=True)
+            )
+
+
+class QuantizeSignedActPercentage(nn.Module):
     """
     Use dynamic binary search to determine the quantization granularity.
     """
@@ -70,6 +144,10 @@ class QuantizeSignedAct(nn.Module):
             self.reduce_dim = (0,)
             self.buffer_size = (1, self.num_features)
 
+        # These buffers are learnable parameters
+        if self.adaptive:
+            self.register_buffer("gamma", torch.zeros(self.buffer_size), persistent=True)
+            self.register_buffer("beta", torch.zeros(self.buffer_size), persistent=True)
         # These buffers are updated during training.
         self.register_buffer("running_bias", torch.zeros(self.buffer_size))
         self.register_buffer("running_shift", torch.ones(self.buffer_size))
@@ -164,7 +242,7 @@ class QuantizeSignedAct(nn.Module):
             )
 
 
-class QuantizeUnsignedAct(nn.Module):
+class QuantizeUnsignedActPercentage(nn.Module):
     """
     Use dynamic binary search to determine the quantization granularity.
     """
@@ -277,7 +355,7 @@ class QuantizeConv(nn.Module, ABC):
 
         # Operator that quantize activation.
         if quantize_act == "signed":
-            self.act_quantize_op = QuantizeSignedAct(self.n_bits, self.out_channels, is_conv=True)
+            self.act_quantize_op = QuantizeSignedActPercentage(self.n_bits, self.out_channels, is_conv=True)
         else:
             assert quantize_act is None
             self.act_quantize_op = None
@@ -306,7 +384,7 @@ class QuantizeFc(nn.Module):
 
         # Operator that quantize activation.
         if quantize_act == "signed":
-            self.act_quantize_op = QuantizeSignedAct(self.n_bits, self.out_features, is_conv=False)
+            self.act_quantize_op = QuantizeSignedActPercentage(self.n_bits, self.out_features, is_conv=False)
         else:
             assert (quantize_act is None)
             self.act_quantize_op = None
