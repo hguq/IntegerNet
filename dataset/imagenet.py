@@ -3,6 +3,7 @@ Load imagenet dataset.
 """
 from torch.utils.data import DataLoader
 import torchvision
+from os.path import join
 from .util import *
 
 imagenet_transform = Compose([
@@ -22,10 +23,11 @@ def get_imagenet(dataset_path, batch_size):
     :param batch_size: batch_size
     :return: train & test loader
     """
-    train_set = torchvision.datasets.ImageFolder(root=dataset_path + "imagenet/train", transform=imagenet_transform)
-    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=8)
-    test_set = torchvision.datasets.ImageFolder(root=dataset_path + "imagenet/test", transform=imagenet_transform)
-    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=True, num_workers=8)
+    train_set = torchvision.datasets.ImageFolder(root=join(dataset_path, "imagenet/train"),
+                                                 transform=imagenet_transform)
+    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=32)
+    test_set = torchvision.datasets.ImageFolder(root=join(dataset_path, "imagenet/test"), transform=imagenet_transform)
+    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=True, num_workers=32)
     return train_loader, test_loader
 
 

@@ -11,11 +11,11 @@
     "n_bits": 4
   },
   "SAVE_PREFIX": "cifar10_bit4",
-  "EPOCHS": 500,
-  "BATCH_SIZE": 512,
-  "LR": 1,
+  "EPOCHS": 100,
+  "BATCH_SIZE": 2048,
+  "LR": 0.1,
   "USE_LR_SCH": 1,
-  "LR_FIN": 0.1
+  "LR_FIN": 0.001
 }
 
 

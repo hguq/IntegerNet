@@ -6,9 +6,14 @@ from .cifar10 import *
 from .cifar100 import *
 from .mnist import *
 from .imagenet import *
+from os import getenv
 
-dataset_path = "/data/student/stu514-16/datasets/"
-# dataset_path = "C:/projects/datasets/"
+PLATFORM = getenv("PLATFORM")
+
+if PLATFORM == "WINDOWS":
+    dataset_path = "C:/projects/datasets"
+else:
+    dataset_path = "/data/student/stu514-16/datasets/"
 
 
 def get_loader(dataset, batch_size):
@@ -18,10 +23,7 @@ def get_loader(dataset, batch_size):
     :param batch_size: Int, batch size
     :return: train loader & test loader
     """
-    return {"cifar10": get_cifar10,
-            "cifar100": get_cifar100,
-            "mnist": get_mnist,
-            "imagenet": get_imagenet}[dataset.lower()](dataset_path, batch_size)
+    return eval(f"get_{dataset.lower()}")(dataset_path, batch_size)
 
 
 def test_datasets():

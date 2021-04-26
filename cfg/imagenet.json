@@ -11,7 +11,7 @@
   },
   "SAVE_PREFIX": "imagenet_resnet",
   "EPOCHS": 20,
-  "BATCH_SIZE": 32,
+  "BATCH_SIZE": 256,
   "LR": 0.0001,
   "USE_LR_SCH": 1,
   "LR_FIN": 0.00001

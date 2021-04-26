@@ -10,7 +10,7 @@
     "num_classes": 10
   },
   "SAVE_PREFIX": "cifar10",
-  "EPOCHS": 500,
+  "EPOCHS": 100,
   "BATCH_SIZE": 512,
   "LR": 0.01,
   "USE_LR_SCH": 1,

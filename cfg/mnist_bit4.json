@@ -11,7 +11,7 @@
     "n_bits": 4
   },
   "SAVE_PREFIX": "mnist_bit4",
-  "EPOCHS": 100,
+  "EPOCHS": 200,
   "BATCH_SIZE": 1024,
   "LR": 0.1,
   "USE_LR_SCH": 1,

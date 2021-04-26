@@ -14,10 +14,8 @@ def replay():
     train_loader, test_loader = get_loader(d["DATASET"], d["BATCH_SIZE"])
     model_module = importlib.import_module("net")
     exec(f"model=model_module." + d["MODEL"].split('.')[-1])
-    # exec(f"from {save_path.replace('/', '.')}.model import {d['MODEL'].split('.')[-1]}")
     net = eval("model")(**d["MODEL_PARAM"]).cuda()
     net.load_state_dict(torch.load("state.pth"))
-
     test_once(net, test_loader, batch_size=d["BATCH_SIZE"], epoch=0)
 
 

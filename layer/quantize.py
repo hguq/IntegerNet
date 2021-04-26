@@ -2,7 +2,6 @@ from abc import ABC
 from torch import nn
 from layer.function import *
 from layer.misc import get_bounds
-from functools import reduce
 
 
 def get_normal_weight(size, n_bits):
@@ -21,7 +20,7 @@ def get_normal_weight(size, n_bits):
 
 class QuantizeWeight(nn.Module):
     """
-    Fake quantization operation.
+    Weight quantization operation.
     Do rounding and clamping.
     Use STE trick to make gradient continuous.
     """
@@ -67,11 +66,11 @@ class QuantizeSignedActSBN(nn.Module):
             self.buffer_size = (1, self.num_features)
 
         if self.adaptive:
-            self.gamma = nn.Parameter(torch.zeros(self.buffer_size))
-            self.beta = nn.Parameter(torch.zeros(self.buffer_size))
+            self.gamma = nn.Parameter(torch.zeros(self.buffer_size))  # mean
+            self.beta = nn.Parameter(torch.zeros(self.buffer_size))  # shift
 
-        self.register_buffer("running_mean", torch.zeros(self.buffer_size), persistent=False)
-        self.register_buffer("running_std", torch.zeros(self.buffer_size), persistent=False)
+        self.register_buffer("running_mean", torch.zeros(self.buffer_size), persistent=True)
+        self.register_buffer("running_std", torch.zeros(self.buffer_size), persistent=True)
 
         self.register_buffer("bias", torch.zeros(self.buffer_size), persistent=True)
         self.register_buffer("shift", torch.zeros(self.buffer_size), persistent=True)
@@ -129,13 +128,14 @@ class QuantizeSignedActPercentage(nn.Module):
     Use dynamic binary search to determine the quantization granularity.
     """
 
-    def __init__(self, n_bits, num_features, is_conv=True, decay=0.9, percentage=(0.01, 0.02)):
+    def __init__(self, n_bits, num_features, is_conv=True, decay=0.9, percentage=(0.01, 0.02), adaptive=False):
         super().__init__()
         self.n_bits = n_bits
         self.num_features = num_features
         self.is_conv = is_conv
         self.decay = decay
         self.percentage = percentage
+        self.adaptive = adaptive
 
         if is_conv:
             self.reduce_dim = (0, 2, 3)
@@ -146,8 +146,8 @@ class QuantizeSignedActPercentage(nn.Module):
 
         # These buffers are learnable parameters
         if self.adaptive:
-            self.register_buffer("gamma", torch.zeros(self.buffer_size), persistent=True)
-            self.register_buffer("beta", torch.zeros(self.buffer_size), persistent=True)
+            self.gamma = nn.Parameter(torch.zeros(self.buffer_size))
+            self.beta = nn.Parameter(torch.zeros(self.buffer_size))
         # These buffers are updated during training.
         self.register_buffer("running_bias", torch.zeros(self.buffer_size))
         self.register_buffer("running_shift", torch.ones(self.buffer_size))
@@ -221,13 +221,20 @@ class QuantizeSignedActPercentage(nn.Module):
             self._prepare_eval()
 
     def _prepare_eval(self):
-        self.bias = torch.round(self.running_bias)
-        self.shift = torch.round(self.running_shift)
+        if self.adaptive:
+            self.bias = torch.round(self.running_bias + self.gamma)
+            self.shift = torch.round(self.running_shift + self.beta)
+        else:
+            self.bias = torch.round(self.running_bias)
+            self.shift = torch.round(self.running_shift)
 
     def forward(self, x):
         if self.training:
             cur_bias, cur_shift = self._get_bias_shift(x)
             self._update_buffer(cur_bias, cur_shift)
+            if self.adaptive:
+                cur_bias += self.gamma
+                cur_shift += self.beta
             return STEClamp.apply(
                 STEFloor.apply(
                     (x - STERound.apply(cur_bias)) * 2 ** STERound.apply(cur_shift)
@@ -247,13 +254,14 @@ class QuantizeUnsignedActPercentage(nn.Module):
     Use dynamic binary search to determine the quantization granularity.
     """
 
-    def __init__(self, n_bits, num_features, is_conv=True, decay=0.9, percentage=(0.01, 0.02)):
+    def __init__(self, n_bits, num_features, is_conv=True, decay=0.9, percentage=(0.01, 0.02), adaptive=False):
         super().__init__()
         self.n_bits = n_bits
         self.num_features = num_features
         self.is_conv = is_conv
         self.decay = decay
         self.percentage = percentage
+        self.adaptive = adaptive
 
         if is_conv:
             self.reduce_dim = (0, 2, 3)
@@ -262,11 +270,13 @@ class QuantizeUnsignedActPercentage(nn.Module):
             self.reduce_dim = (0,)
             self.buffer_size = (1, self.num_features)
 
+        self.beta = nn.Parameter(torch.zeros(self.buffer_size))
+
         # These buffers are updated during training.
         self.register_buffer("running_shift", torch.ones(self.buffer_size))
 
         # These buffers are saved into persistent model.
-        self.register_buffer("shift", torch.zeros(self.buffer_size))
+        self.register_buffer("shift", torch.zeros(self.buffer_size), persistent=True)
 
         # A flag to determine whether the first time to forward.
         self.hot = False
@@ -323,6 +333,8 @@ class QuantizeUnsignedActPercentage(nn.Module):
         if self.training:
             cur_shift = self._get_shift(x)
             self._update_buffer(cur_shift)
+            if self.adaptive:
+                cur_shift += self.beta
             return STEClamp.apply(
                 STEFloor.apply(
                     x * 2 ** STERound.apply(cur_shift)
@@ -336,7 +348,7 @@ class QuantizeUnsignedActPercentage(nn.Module):
             )
 
 
-class QuantizeConv(nn.Module, ABC):
+class QuantizeConv(nn.Module):
     """
     Use quantized weights and quantized activations, do quantized convolution.
     """
@@ -370,6 +382,11 @@ class QuantizeConv(nn.Module, ABC):
             x, self.weight_quantize_op(self.w), bias=None, stride=self.stride, padding=self.padding)
         return self.act_quantize_op(conv_res) if self.act_quantize_op else conv_res
 
+    def train(self, mode=True):
+        super().train(mode)
+        # if not mode:
+            # self.w = nn.Parameter(self.weight_quantize_op(self.w))
+
 
 class QuantizeFc(nn.Module):
     # Do quantization as Linear layer
@@ -396,3 +413,8 @@ class QuantizeFc(nn.Module):
     def forward(self, x):
         mat_res = torch.matmul(x, self.weight_quantize_op(self.w))
         return self.act_quantize_op(mat_res) if self.act_quantize_op else mat_res
+
+    def train(self, mode=True):
+        super().train(mode)
+        # if not mode:
+            # self.w = nn.Parameter(self.weight_quantize_op(self.w))

@@ -12,7 +12,14 @@
       <paths name="server5-ssh">
         <serverdata>
           <mappings>
-            <mapping deploy="/data/student/stu514-16/projects/IntegerNet" local="$PROJECT_DIR$" />
+            <mapping deploy="/projects/IntegerNet" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="server5-ssh (1)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

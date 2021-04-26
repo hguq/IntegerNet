@@ -11,7 +11,7 @@
   },
   "SAVE_PREFIX": "mnist",
   "EPOCHS": 100,
-  "BATCH_SIZE": 1024,
+  "BATCH_SIZE": 4096,
   "LR": 0.01,
   "USE_LR_SCH": 1,
   "LR_FIN": 0.001
