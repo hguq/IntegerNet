@@ -7,3 +7,4 @@ from .IntegerResNet import IntegerResNet
 from .IntegerCifar100Net import IntegerCifar100Net
 from .Cifar100Net import Cifar100Net
 from .IntegerImageNet import IntegerImageNet
+from .ImagenetNet import ImagenetNet

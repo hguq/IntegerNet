@@ -16,18 +16,20 @@ imagenet_transform = Compose([
 ])
 
 
-def get_imagenet(dataset_path, batch_size):
+def get_imagenet(dataset_path, batch_size, num_workers):
     """
     return imagenet train & test dataloader
     :param dataset_path: dataset path
     :param batch_size: batch_size
     :return: train & test loader
     """
+    if num_workers is None:
+        num_workers = 16
     train_set = torchvision.datasets.ImageFolder(root=join(dataset_path, "imagenet/train"),
                                                  transform=imagenet_transform)
-    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=32)
+    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     test_set = torchvision.datasets.ImageFolder(root=join(dataset_path, "imagenet/test"), transform=imagenet_transform)
-    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=True, num_workers=32)
+    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     return train_loader, test_loader
 
 

@@ -31,3 +31,10 @@ cifar_test_transform = Compose([
     ToTensor(),
     Float2Int()
 ])
+
+ccpd_transform = Compose([
+    CenterCrop([700, 700]),
+    Resize([256, 256]),
+    ToTensor(),
+    Float2Int()
+])

@@ -1,0 +1,21 @@
+{
+  "DATASET": "imagenet",
+  "MODEL": "model.mine.IntegerResNet",
+  "MODEL_PARAM": {
+    "img_size": [
+      256,
+      256,
+      3
+    ],
+    "num_classes": 1000,
+    "n_bits": 4
+  },
+  "SAVE_PREFIX": "imagenet_resnet_bit4",
+  "EPOCHS": 20,
+  "BATCH_SIZE": 800,
+  "LR": 0.1,
+  "USE_LR_SCH": 1,
+  "LR_FIN": 0.01
+}
+
+

@@ -32,7 +32,11 @@ class Cifar10Net(torch.nn.Module):
         )
 
         self.fc = Sequential(
-            Linear(img_size[0] * img_size[1] // 64 * 256, 512),
+            Linear(img_size[0] * img_size[1] // 64 * 256, 1024),
+            BatchNorm1d(1024),
+            ReLU(),
+
+            Linear(1024, 512),
             BatchNorm1d(512),
             ReLU(),
 

@@ -6,24 +6,25 @@ from .cifar10 import *
 from .cifar100 import *
 from .mnist import *
 from .imagenet import *
-from os import getenv
+from .ccpd import *
+import platform
 
-PLATFORM = getenv("PLATFORM")
-
-if PLATFORM == "WINDOWS":
+if platform.system().lower() == "windows":
     dataset_path = "C:/projects/datasets"
 else:
     dataset_path = "/data/student/stu514-16/datasets/"
 
 
-def get_loader(dataset, batch_size):
+def get_loader(dataset, batch_size, num_workers=None):
     """
     A function to get train dataloader & test dataloader
+    :param num_workers: num workers
     :param dataset: String, like "Cifar10" or "Imagenet"
     :param batch_size: Int, batch size
     :return: train loader & test loader
     """
-    return eval(f"get_{dataset.lower()}")(dataset_path, batch_size)
+    # if num_workers is none, will use default num workers for each dataset
+    return eval(f"get_{dataset.lower()}")(dataset_path, batch_size, num_workers)
 
 
 def test_datasets():

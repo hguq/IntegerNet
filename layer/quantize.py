@@ -30,7 +30,8 @@ class QuantizeWeight(nn.Module):
         self.n_bits = n_bits
 
     def forward(self, x):
-        return STEClamp.apply(STERound.apply(x), *get_bounds(self.n_bits, signed=True))
+        # return STEClamp.apply(STERound.apply(x), *get_bounds(self.n_bits, signed=True))
+        return torch.clamp(STERound.apply(x), *get_bounds(self.n_bits, signed=True))
 
 
 class LimitAcc(nn.Module):
@@ -46,7 +47,8 @@ class LimitAcc(nn.Module):
         self.signed = signed
 
     def forward(self, x):
-        return STEClamp.apply(x, *get_bounds(self.n_bits, self.signed))
+        # return STEClamp.apply(x, *get_bounds(self.n_bits, self.signed))
+        return torch.clamp(x, *get_bounds(self.n_bits, self.signed))
 
 
 class QuantizeSignedActSBN(nn.Module):
@@ -112,7 +114,8 @@ class QuantizeSignedActSBN(nn.Module):
                 cur_bias = STERound.apply(cur_mean)
                 cur_shift = self.n_bits - 3 + STERound.apply(-torch.log2(cur_std))
 
-            return STEClamp.apply(
+            # return STEClamp.apply(
+            return torch.clamp(
                 STEFloor.apply((x - cur_bias) * 2 ** cur_shift),
                 *get_bounds(self.n_bits, signed=True)
             )
@@ -120,6 +123,83 @@ class QuantizeSignedActSBN(nn.Module):
             return torch.clamp(
                 torch.floor((x - self.bias) * 2 ** self.shift),
                 *get_bounds(self.n_bits, signed=True)
+            )
+
+
+class ReLUQuantizeUnsignedActSBN(nn.Module):
+    # This function will do relu and quantize.
+    def __init__(self, n_bits, num_features, is_conv=True, decay=0.9, adaptive=False):
+        super().__init__()
+        self.n_bits = n_bits
+        self.num_features = num_features
+        self.is_conv = is_conv
+        self.decay = decay
+        self.adaptive = adaptive
+
+        if is_conv:
+            self.reduce_dim = (0, 2, 3)
+            self.buffer_size = (1, self.num_features, 1, 1)
+        else:
+            self.reduce_dim = (0,)
+            self.buffer_size = (1, self.num_features)
+
+        if self.adaptive:
+            self.gamma = nn.Parameter(torch.zeros(self.buffer_size))  # mean
+            self.beta = nn.Parameter(torch.zeros(self.buffer_size))  # shift
+
+        self.register_buffer("running_mean", torch.zeros(self.buffer_size), persistent=True)
+        self.register_buffer("running_std", torch.zeros(self.buffer_size), persistent=True)
+
+        self.register_buffer("bias", torch.zeros(self.buffer_size), persistent=True)
+        self.register_buffer("shift", torch.zeros(self.buffer_size), persistent=True)
+
+        self.relu = nn.ReLU()
+        self.hot = False
+
+    def _update_buffer(self, cur_mean, cur_std):
+        with torch.no_grad():
+            if self.hot:
+                self.running_mean = self.running_mean * self.decay + cur_mean * (1 - self.decay)
+                self.running_std = self.running_std * self.decay + cur_std * (1 - self.decay)
+            else:
+                self.running_mean.copy_(cur_mean)
+                self.running_std.copy_(cur_std)
+                self.hot = True
+
+    def train(self, mode=True):
+        super().train(mode)
+        if not mode:
+            self._prepare_eval()
+
+    def _prepare_eval(self):
+        if self.adaptive:
+            self.bias = torch.round(self.running_mean + self.gamma)
+            self.shift = self.n_bits - 2 + torch.round(-torch.log2(self.running_std) + self.beta)
+        else:
+            self.bias = torch.round(self.running_mean)
+            self.shift = self.n_bits - 2 + torch.round(-torch.log2(self.running_std))
+
+    def forward(self, x):
+        if self.training:
+            cur_mean, cur_std = x.mean(dim=self.reduce_dim, keepdim=True), x.std(dim=self.reduce_dim, keepdim=True)
+            self._update_buffer(cur_mean, cur_std)
+
+            if self.adaptive:
+                cur_bias = STERound.apply(cur_mean + self.gamma)
+                cur_shift = self.n_bits - 2 + STERound.apply(-torch.log2(cur_std) + self.beta)
+            else:
+                cur_bias = STERound.apply(cur_mean)
+                cur_shift = self.n_bits - 2 + STERound.apply(-torch.log2(cur_std))
+
+            # return STEClamp.apply(
+            return torch.clamp(
+                STEFloor.apply((x - cur_bias) * 2 ** cur_shift),
+                *get_bounds(self.n_bits, signed=False)
+            )
+        else:
+            return torch.clamp(
+                torch.floor((x - self.bias) * 2 ** self.shift),
+                *get_bounds(self.n_bits, signed=False)
             )
 
 
@@ -235,7 +315,8 @@ class QuantizeSignedActPercentage(nn.Module):
             if self.adaptive:
                 cur_bias += self.gamma
                 cur_shift += self.beta
-            return STEClamp.apply(
+            # return STEClamp.apply(
+            return torch.clamp(
                 STEFloor.apply(
                     (x - STERound.apply(cur_bias)) * 2 ** STERound.apply(cur_shift)
                 ),
@@ -335,7 +416,8 @@ class QuantizeUnsignedActPercentage(nn.Module):
             self._update_buffer(cur_shift)
             if self.adaptive:
                 cur_shift += self.beta
-            return STEClamp.apply(
+            # return STEClamp.apply(
+            return torch.clamp(
                 STEFloor.apply(
                     x * 2 ** STERound.apply(cur_shift)
                 ),
@@ -353,7 +435,7 @@ class QuantizeConv(nn.Module):
     Use quantized weights and quantized activations, do quantized convolution.
     """
 
-    def __init__(self, n_bits, in_channels, out_channels, kernel_size, stride=1, padding=0, quantize_act=None):
+    def __init__(self, n_bits, in_channels, out_channels, kernel_size, stride=1, padding=1, quantize_act=None):
         super().__init__()
 
         self.n_bits = n_bits
@@ -385,7 +467,7 @@ class QuantizeConv(nn.Module):
     def train(self, mode=True):
         super().train(mode)
         # if not mode:
-            # self.w = nn.Parameter(self.weight_quantize_op(self.w))
+        # self.w = nn.Parameter(self.weight_quantize_op(self.w))
 
 
 class QuantizeFc(nn.Module):
@@ -417,4 +499,4 @@ class QuantizeFc(nn.Module):
     def train(self, mode=True):
         super().train(mode)
         # if not mode:
-            # self.w = nn.Parameter(self.weight_quantize_op(self.w))
+        # self.w = nn.Parameter(self.weight_quantize_op(self.w))

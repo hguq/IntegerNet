@@ -24,12 +24,13 @@ def exec_cfg(config_file):
 
     print("**********" + config_file + "**********")
 
-    # Get loader from "d"
-    train_loader, test_loader = get_loader(d["DATASET"], d["BATCH_SIZE"])
     # Make a model "net"
     net = eval(d["MODEL"])(**d["MODEL_PARAM"]).cuda()
     # Convert "net" to parallel
     net = torch.nn.DataParallel(net)
+
+    # Get loader from "d"
+    train_loader, test_loader = get_loader(d["DATASET"], d["BATCH_SIZE"])
 
     # Make a optimizer "opt"
     opt = torch.optim.Adam(net.parameters(), lr=d["LR"])
@@ -89,8 +90,18 @@ def exec_cfg(config_file):
         os.system(f"cp {config_file} {save_dir}/config.json")
         # Copy replay file
         os.system(f"cp process/replay.py {save_dir}/replay.py")
+        # Copy raw replay file
+        os.system(f"cp process/raw.py {save_dir}/raw.py")
         # Save state dict
+        if best_state is None:
+            if isinstance(net, torch.nn.DataParallel):
+                best_state = copy.deepcopy(net.module.state_dict())
+            else:
+                best_state = copy.deepcopy(net.state_dict())
         torch.save(best_state, save_dir + "/state.pth")
+        # Save net structure with state dict
+        net.module.load_state_dict(best_state)
+        torch.save(net.module, save_dir + "/net.pth")
 
 
 class TaskQueueThread(threading.Thread):
