@@ -47,8 +47,8 @@ class BasicBlockQuantize(nn.Module):
             )"""
         if down_sample or in_channels != out_channels:
             self.shortcut = nn.Sequential(
-                QuantizeConv(n_bits=n_bits, in_channels=in_channels, out_channels=out_channels, kernel_size=3,
-                             stride=1),
+                QuantizeConv(n_bits=n_bits, in_channels=in_channels, out_channels=out_channels, kernel_size=1,
+                             stride=1, padding=0),
                 MaxPool2d(2, 2) if down_sample else nn.Sequential()  # if down_sample else nn.Sequential(),
             )
 
@@ -71,18 +71,22 @@ class IntegerResNet(torch.nn.Module):
         super().__init__()
 
         self.res = torch.nn.Sequential(
-            # QuantizeConv(n_bits=n_bits, in_channels=img_size[2], out_channels=16, kernel_size=3, stride=1, padding=1, ),
-            # ReLUQuantizeUnsignedActSBN(n_bits=n_bits, num_features=16, is_conv=True),
-            BasicBlockQuantize(img_size[2], 16, n_bits=n_bits, down_sample=True),
+            QuantizeConv(n_bits=n_bits, in_channels=img_size[2], out_channels=64, kernel_size=7, stride=2, padding=3),
             # 128 * 128
-
-            BasicBlockQuantize(16, 32, n_bits=n_bits, down_sample=True),
+            ReLUQuantizeUnsignedActSBN(n_bits=n_bits, num_features=64),
+            MaxPool2d(kernel_size=(3, 3), stride=2, padding=1),
             # 64 * 64
 
-            BasicBlockQuantize(32, 64, n_bits=n_bits, down_sample=True),
+            BasicBlockQuantize(64, 64, n_bits=n_bits, down_sample=False),
+
+            BasicBlockQuantize(64, 64, n_bits=n_bits, down_sample=True),
             # 32 * 32
 
             BasicBlockQuantize(64, 128, n_bits=n_bits, down_sample=True),
+            # 16 * 16
+
+            BasicBlockQuantize(64, 128, n_bits=n_bits, down_sample=True),
+            # 8 * 8
             # 16 * 16
 
             BasicBlockQuantize(128, 256, n_bits=n_bits, down_sample=True),

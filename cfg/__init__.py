@@ -3,7 +3,6 @@ Config implementation
 """
 import copy
 import os
-import shutil
 import json
 import threading
 import torch
@@ -14,13 +13,15 @@ from dataset import get_loader
 from process import train_one_epoch, test_once
 
 
-def exec_cfg(config_file):
+def exec_cfg(config_file, **kwargs):
     """
     Do a task specified by config file.
     :param config_file: a config file to be executed
     """
     # Load and parse a json file to a dict "d"
     d = json.loads(open(config_file).read())
+    for key, value in kwargs.items():
+        d[key] = value
 
     print("**********" + config_file + "**********")
 
@@ -48,21 +49,29 @@ def exec_cfg(config_file):
     best_top1_rate = 0
     best_top5_rate = 0
 
+    # Log
+    log = []
+
     # Use exception handling to catch keyboard interruption and save model.
     try:
         for e in range(d["EPOCHS"]):
             # train one epoch
-            train_one_epoch(model=net,
-                            dataloader=train_loader,
-                            opt=opt,
-                            batch_size=d["BATCH_SIZE"],
-                            epoch=e,
-                            lr_sch=lr_scheduler)
+            train_top1_rate, train_top5_rate = train_one_epoch(model=net,
+                                                               dataloader=train_loader,
+                                                               opt=opt,
+                                                               batch_size=d["BATCH_SIZE"],
+                                                               epoch=e,
+                                                               lr_sch=lr_scheduler)
             # then test accuracy
             top1_rate, top5_rate = test_once(model=net,
                                              dataloader=test_loader,
                                              batch_size=d["BATCH_SIZE"],
                                              epoch=e)
+            # Add log
+            log.append(f"Epoch {e}: train {train_top1_rate * 100:2.2f} {train_top5_rate * 100:2.2f}\n")
+            log.append(f"Epoch {e}: test  {top1_rate * 100:2.2f} {top5_rate * 100:2.2f}\n")
+            cur_lr = opt.state_dict()['param_groups'][0]['lr']
+            log.append(f"Epoch {e}: LR    {cur_lr:.3e}\n\n")
             # Update best model state
             if top1_rate > best_top1_rate:
                 best_top1_rate = top1_rate
@@ -88,6 +97,8 @@ def exec_cfg(config_file):
         os.system(f"cp layer/ {save_dir} -r")
         # Copy config file
         os.system(f"cp {config_file} {save_dir}/config.json")
+        # Copy continue file
+        os.system(f"cp process/proceed.py {save_dir}/proceed.py")
         # Copy replay file
         os.system(f"cp process/replay.py {save_dir}/replay.py")
         # Copy raw replay file
@@ -102,6 +113,10 @@ def exec_cfg(config_file):
         # Save net structure with state dict
         net.module.load_state_dict(best_state)
         torch.save(net.module, save_dir + "/net.pth")
+        # Save log
+        with open(f"{save_dir}/log.txt", "w") as f:
+            for line in log:
+                f.write(line)
 
 
 class TaskQueueThread(threading.Thread):

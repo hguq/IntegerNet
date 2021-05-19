@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from torch.nn import Linear, Conv2d, BatchNorm2d, BatchNorm1d, ReLU, Sequential
+from torch.nn import Linear, Conv2d, BatchNorm2d, BatchNorm1d, ReLU, Sequential, MaxPool2d
 from torch.nn import functional
 
 
@@ -11,7 +11,6 @@ class BasicBlock(nn.Module):
                 |                     |
                 +---------------------+
     """
-
     def __init__(self, in_channels, out_channels, down_sample=False):
         super().__init__()
 
@@ -71,36 +70,37 @@ class BottleNeck(nn.Module):
 class ResNet(torch.nn.Module):
     """
     ResNet implementation.
+    Resnet18
     """
 
     def __init__(self, img_size, num_classes):
         super().__init__()
 
         self.res = Sequential(
-            Conv2d(in_channels=img_size[2], out_channels=64, kernel_size=3, stride=1, padding=1),
+            Conv2d(in_channels=img_size[2], out_channels=64, kernel_size=7, stride=2, padding=3),
+            # 128 * 128
             BatchNorm2d(64),
             ReLU(),
+            MaxPool2d(kernel_size=(3, 3), stride=2, padding=1),
+            # 64 * 64
 
-            BasicBlock(64, 64, down_sample=True),
             BasicBlock(64, 64, down_sample=False),
 
+            BasicBlock(64, 64, down_sample=True),
+            # 32 * 32
             BasicBlock(64, 128, down_sample=True),
-            BasicBlock(128, 128, down_sample=False),
-
-            BasicBlock(128, 256, down_sample=True),
-            BasicBlock(256, 256, down_sample=False),
-
-            BasicBlock(256, 512, down_sample=True),
-            BasicBlock(512, 512, down_sample=False),
-
-            BasicBlock(512, 512, down_sample=True),
-            BasicBlock(512, 512, down_sample=False),
+            # 16 * 16
+            BasicBlock(128, 128, down_sample=True),
+            # 8 * 8
+            BasicBlock(128, 128, down_sample=True)
+            # 4 * 4
         )
 
-        n_feature = img_size[0] * img_size[1] // (2 ** 10) * 512
+        n_feature = 4 * 4 * 128
         self.fc = Sequential(
             Linear(n_feature, 1024),
             BatchNorm1d(1024),
+            ReLU(),
             Linear(1024, num_classes)
         )
 

@@ -10,7 +10,7 @@
     "num_classes": 10
   },
   "SAVE_PREFIX": "mnist",
-  "EPOCHS": 100,
+  "EPOCHS": 2,
   "BATCH_SIZE": 4096,
   "LR": 0.01,
   "USE_LR_SCH": 1,

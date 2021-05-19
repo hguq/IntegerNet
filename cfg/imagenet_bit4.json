@@ -14,7 +14,7 @@
   "BATCH_SIZE": 256,
   "LR": 0.1,
   "USE_LR_SCH": 1,
-  "LR_FIN": 0.01
+  "LR_FIN": 0.001
 }
 
 

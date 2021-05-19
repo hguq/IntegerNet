@@ -12,9 +12,9 @@
   "SAVE_PREFIX": "imagenet",
   "EPOCHS": 20,
   "BATCH_SIZE": 512,
-  "LR": 0.0001,
+  "LR": 0.01,
   "USE_LR_SCH": 1,
-  "LR_FIN": 0.00001
+  "LR_FIN": 0.001
 }
 
 
