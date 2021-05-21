@@ -1,10 +1,14 @@
-from .IntegerCifar10Net import IntegerCifar10Net
-from .IntegerMnistNet import IntegerMnistNet
-from .MnistNet import MnistNet
-from .Cifar10Net import Cifar10Net
-from .ResNet import ResNet
-from .IntegerResNet import IntegerResNet
-from .IntegerCifar100Net import IntegerCifar100Net
-from .Cifar100Net import Cifar100Net
-from .IntegerImageNet import IntegerImageNet
-from .ImagenetNet import ImagenetNet
+from .CIFAR10NET import CIFAR10NET
+from .CIFAR10NET_INT import CIFAR10NET_INT
+
+from .MNISTNET import MNISTNET
+from .MNISTNET_INT import MNISTNET_INT
+
+from .RESNET import RESNET
+from .RESNET_INT import RESNET_INT
+
+from .CIFAR100NET import CIFAR100NET
+from .CIFAR100NET_INT import CIFAR100NET_INT
+
+from .VGG import VGG
+from .VGG_INT import VGG_INT

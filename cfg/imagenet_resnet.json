@@ -1,6 +1,6 @@
 {
   "DATASET": "imagenet",
-  "MODEL": "model.mine.ResNet",
+  "MODEL": "model.mine.RESNET",
   "MODEL_PARAM": {
     "img_size": [
       256,
@@ -10,11 +10,11 @@
     "num_classes": 1000
   },
   "SAVE_PREFIX": "imagenet_resnet",
-  "EPOCHS": 20,
-  "BATCH_SIZE": 1024,
+  "EPOCHS": 10,
+  "BATCH_SIZE": 400,
   "LR": 0.01,
   "USE_LR_SCH": 1,
-  "LR_FIN": 0.001
+  "LR_FIN": 0.0001
 }
 
 

@@ -1,4 +1,4 @@
-'''Pre-activation ResNet in PyTorch.
+'''Pre-activation RESNET in PyTorch.
 
 Reference:
 [1] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun

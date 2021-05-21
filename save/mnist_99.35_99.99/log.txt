@@ -1,0 +1,800 @@
+Epoch 0: train 83.62 95.92
+Epoch 0: test  46.22 84.49
+Epoch 0: LR    9.771e-03
+
+Epoch 1: train 96.04 99.84
+Epoch 1: test  95.92 99.83
+Epoch 1: LR    9.548e-03
+
+Epoch 2: train 97.28 99.91
+Epoch 2: test  97.60 99.95
+Epoch 2: LR    9.329e-03
+
+Epoch 3: train 97.93 99.94
+Epoch 3: test  98.17 99.98
+Epoch 3: LR    9.116e-03
+
+Epoch 4: train 98.32 99.97
+Epoch 4: test  98.59 99.98
+Epoch 4: LR    8.907e-03
+
+Epoch 5: train 98.58 99.98
+Epoch 5: test  98.76 99.99
+Epoch 5: LR    8.704e-03
+
+Epoch 6: train 98.80 99.98
+Epoch 6: test  98.82 99.99
+Epoch 6: LR    8.504e-03
+
+Epoch 7: train 98.97 99.99
+Epoch 7: test  98.96 99.99
+Epoch 7: LR    8.310e-03
+
+Epoch 8: train 99.11 100.00
+Epoch 8: test  99.01 100.00
+Epoch 8: LR    8.120e-03
+
+Epoch 9: train 99.22 100.00
+Epoch 9: test  99.00 100.00
+Epoch 9: LR    7.934e-03
+
+Epoch 10: train 99.32 100.00
+Epoch 10: test  99.02 100.00
+Epoch 10: LR    7.753e-03
+
+Epoch 11: train 99.39 100.00
+Epoch 11: test  99.05 100.00
+Epoch 11: LR    7.575e-03
+
+Epoch 12: train 99.44 100.00
+Epoch 12: test  99.07 100.00
+Epoch 12: LR    7.402e-03
+
+Epoch 13: train 99.52 100.00
+Epoch 13: test  99.10 100.00
+Epoch 13: LR    7.233e-03
+
+Epoch 14: train 99.57 100.00
+Epoch 14: test  99.11 100.00
+Epoch 14: LR    7.067e-03
+
+Epoch 15: train 99.60 100.00
+Epoch 15: test  99.19 100.00
+Epoch 15: LR    6.906e-03
+
+Epoch 16: train 99.65 100.00
+Epoch 16: test  99.18 100.00
+Epoch 16: LR    6.748e-03
+
+Epoch 17: train 99.70 100.00
+Epoch 17: test  99.19 100.00
+Epoch 17: LR    6.593e-03
+
+Epoch 18: train 99.74 100.00
+Epoch 18: test  99.22 100.00
+Epoch 18: LR    6.442e-03
+
+Epoch 19: train 99.77 100.00
+Epoch 19: test  99.20 100.00
+Epoch 19: LR    6.295e-03
+
+Epoch 20: train 99.80 100.00
+Epoch 20: test  99.23 100.00
+Epoch 20: LR    6.151e-03
+
+Epoch 21: train 99.83 100.00
+Epoch 21: test  99.24 100.00
+Epoch 21: LR    6.010e-03
+
+Epoch 22: train 99.85 100.00
+Epoch 22: test  99.24 100.00
+Epoch 22: LR    5.873e-03
+
+Epoch 23: train 99.87 100.00
+Epoch 23: test  99.23 100.00
+Epoch 23: LR    5.738e-03
+
+Epoch 24: train 99.89 100.00
+Epoch 24: test  99.18 100.00
+Epoch 24: LR    5.607e-03
+
+Epoch 25: train 99.90 100.00
+Epoch 25: test  99.15 100.00
+Epoch 25: LR    5.479e-03
+
+Epoch 26: train 99.91 100.00
+Epoch 26: test  99.21 99.99
+Epoch 26: LR    5.354e-03
+
+Epoch 27: train 99.91 100.00
+Epoch 27: test  99.27 99.99
+Epoch 27: LR    5.231e-03
+
+Epoch 28: train 99.93 100.00
+Epoch 28: test  99.22 99.98
+Epoch 28: LR    5.111e-03
+
+Epoch 29: train 99.94 100.00
+Epoch 29: test  99.21 99.98
+Epoch 29: LR    4.995e-03
+
+Epoch 30: train 99.95 100.00
+Epoch 30: test  99.22 99.99
+Epoch 30: LR    4.880e-03
+
+Epoch 31: train 99.95 100.00
+Epoch 31: test  99.19 99.98
+Epoch 31: LR    4.769e-03
+
+Epoch 32: train 99.96 100.00
+Epoch 32: test  99.18 99.98
+Epoch 32: LR    4.660e-03
+
+Epoch 33: train 99.96 100.00
+Epoch 33: test  99.23 99.99
+Epoch 33: LR    4.553e-03
+
+Epoch 34: train 99.96 100.00
+Epoch 34: test  99.24 99.99
+Epoch 34: LR    4.449e-03
+
+Epoch 35: train 99.96 100.00
+Epoch 35: test  99.26 99.99
+Epoch 35: LR    4.347e-03
+
+Epoch 36: train 99.97 100.00
+Epoch 36: test  99.26 99.99
+Epoch 36: LR    4.248e-03
+
+Epoch 37: train 99.97 100.00
+Epoch 37: test  99.20 100.00
+Epoch 37: LR    4.150e-03
+
+Epoch 38: train 99.98 100.00
+Epoch 38: test  99.14 100.00
+Epoch 38: LR    4.055e-03
+
+Epoch 39: train 99.98 100.00
+Epoch 39: test  99.15 100.00
+Epoch 39: LR    3.963e-03
+
+Epoch 40: train 99.98 100.00
+Epoch 40: test  99.21 100.00
+Epoch 40: LR    3.872e-03
+
+Epoch 41: train 99.98 100.00
+Epoch 41: test  99.21 100.00
+Epoch 41: LR    3.783e-03
+
+Epoch 42: train 99.99 100.00
+Epoch 42: test  99.22 100.00
+Epoch 42: LR    3.697e-03
+
+Epoch 43: train 99.99 100.00
+Epoch 43: test  99.22 99.99
+Epoch 43: LR    3.612e-03
+
+Epoch 44: train 99.99 100.00
+Epoch 44: test  99.20 99.99
+Epoch 44: LR    3.530e-03
+
+Epoch 45: train 99.99 100.00
+Epoch 45: test  99.20 99.99
+Epoch 45: LR    3.449e-03
+
+Epoch 46: train 99.99 100.00
+Epoch 46: test  99.24 100.00
+Epoch 46: LR    3.370e-03
+
+Epoch 47: train 100.00 100.00
+Epoch 47: test  99.26 99.99
+Epoch 47: LR    3.293e-03
+
+Epoch 48: train 100.00 100.00
+Epoch 48: test  99.26 100.00
+Epoch 48: LR    3.218e-03
+
+Epoch 49: train 100.00 100.00
+Epoch 49: test  99.29 100.00
+Epoch 49: LR    3.144e-03
+
+Epoch 50: train 100.00 100.00
+Epoch 50: test  99.35 99.99
+Epoch 50: LR    3.072e-03
+
+Epoch 51: train 100.00 100.00
+Epoch 51: test  99.32 99.99
+Epoch 51: LR    3.002e-03
+
+Epoch 52: train 100.00 100.00
+Epoch 52: test  99.32 99.99
+Epoch 52: LR    2.933e-03
+
+Epoch 53: train 100.00 100.00
+Epoch 53: test  99.32 99.99
+Epoch 53: LR    2.866e-03
+
+Epoch 54: train 100.00 100.00
+Epoch 54: test  99.35 99.98
+Epoch 54: LR    2.801e-03
+
+Epoch 55: train 100.00 100.00
+Epoch 55: test  99.34 99.98
+Epoch 55: LR    2.736e-03
+
+Epoch 56: train 100.00 100.00
+Epoch 56: test  99.35 99.99
+Epoch 56: LR    2.674e-03
+
+Epoch 57: train 100.00 100.00
+Epoch 57: test  99.33 99.98
+Epoch 57: LR    2.613e-03
+
+Epoch 58: train 100.00 100.00
+Epoch 58: test  99.29 99.98
+Epoch 58: LR    2.553e-03
+
+Epoch 59: train 100.00 100.00
+Epoch 59: test  99.31 99.99
+Epoch 59: LR    2.495e-03
+
+Epoch 60: train 100.00 100.00
+Epoch 60: test  99.30 99.99
+Epoch 60: LR    2.437e-03
+
+Epoch 61: train 100.00 100.00
+Epoch 61: test  99.29 99.99
+Epoch 61: LR    2.382e-03
+
+Epoch 62: train 100.00 100.00
+Epoch 62: test  99.30 99.99
+Epoch 62: LR    2.327e-03
+
+Epoch 63: train 100.00 100.00
+Epoch 63: test  99.27 99.98
+Epoch 63: LR    2.274e-03
+
+Epoch 64: train 100.00 100.00
+Epoch 64: test  99.27 99.99
+Epoch 64: LR    2.222e-03
+
+Epoch 65: train 100.00 100.00
+Epoch 65: test  99.27 99.99
+Epoch 65: LR    2.171e-03
+
+Epoch 66: train 100.00 100.00
+Epoch 66: test  99.28 99.99
+Epoch 66: LR    2.121e-03
+
+Epoch 67: train 100.00 100.00
+Epoch 67: test  99.28 99.99
+Epoch 67: LR    2.073e-03
+
+Epoch 68: train 100.00 100.00
+Epoch 68: test  99.28 99.99
+Epoch 68: LR    2.026e-03
+
+Epoch 69: train 100.00 100.00
+Epoch 69: test  99.26 99.99
+Epoch 69: LR    1.979e-03
+
+Epoch 70: train 100.00 100.00
+Epoch 70: test  99.26 99.99
+Epoch 70: LR    1.934e-03
+
+Epoch 71: train 100.00 100.00
+Epoch 71: test  99.25 99.99
+Epoch 71: LR    1.890e-03
+
+Epoch 72: train 100.00 100.00
+Epoch 72: test  99.25 99.99
+Epoch 72: LR    1.846e-03
+
+Epoch 73: train 100.00 100.00
+Epoch 73: test  99.27 99.99
+Epoch 73: LR    1.804e-03
+
+Epoch 74: train 100.00 100.00
+Epoch 74: test  99.28 99.99
+Epoch 74: LR    1.763e-03
+
+Epoch 75: train 100.00 100.00
+Epoch 75: test  99.30 99.99
+Epoch 75: LR    1.723e-03
+
+Epoch 76: train 100.00 100.00
+Epoch 76: test  99.33 99.99
+Epoch 76: LR    1.683e-03
+
+Epoch 77: train 100.00 100.00
+Epoch 77: test  99.30 99.99
+Epoch 77: LR    1.645e-03
+
+Epoch 78: train 100.00 100.00
+Epoch 78: test  99.31 99.99
+Epoch 78: LR    1.607e-03
+
+Epoch 79: train 100.00 100.00
+Epoch 79: test  99.31 99.99
+Epoch 79: LR    1.570e-03
+
+Epoch 80: train 100.00 100.00
+Epoch 80: test  99.31 99.99
+Epoch 80: LR    1.534e-03
+
+Epoch 81: train 100.00 100.00
+Epoch 81: test  99.30 99.99
+Epoch 81: LR    1.499e-03
+
+Epoch 82: train 100.00 100.00
+Epoch 82: test  99.29 99.99
+Epoch 82: LR    1.465e-03
+
+Epoch 83: train 100.00 100.00
+Epoch 83: test  99.29 99.99
+Epoch 83: LR    1.431e-03
+
+Epoch 84: train 100.00 100.00
+Epoch 84: test  99.30 99.99
+Epoch 84: LR    1.399e-03
+
+Epoch 85: train 100.00 100.00
+Epoch 85: test  99.31 99.99
+Epoch 85: LR    1.367e-03
+
+Epoch 86: train 100.00 100.00
+Epoch 86: test  99.30 99.99
+Epoch 86: LR    1.335e-03
+
+Epoch 87: train 100.00 100.00
+Epoch 87: test  99.31 99.99
+Epoch 87: LR    1.305e-03
+
+Epoch 88: train 100.00 100.00
+Epoch 88: test  99.31 99.99
+Epoch 88: LR    1.275e-03
+
+Epoch 89: train 100.00 100.00
+Epoch 89: test  99.30 99.99
+Epoch 89: LR    1.246e-03
+
+Epoch 90: train 100.00 100.00
+Epoch 90: test  99.30 99.99
+Epoch 90: LR    1.217e-03
+
+Epoch 91: train 100.00 100.00
+Epoch 91: test  99.30 99.99
+Epoch 91: LR    1.190e-03
+
+Epoch 92: train 100.00 100.00
+Epoch 92: test  99.31 99.99
+Epoch 92: LR    1.162e-03
+
+Epoch 93: train 100.00 100.00
+Epoch 93: test  99.31 99.99
+Epoch 93: LR    1.136e-03
+
+Epoch 94: train 100.00 100.00
+Epoch 94: test  99.31 99.99
+Epoch 94: LR    1.110e-03
+
+Epoch 95: train 100.00 100.00
+Epoch 95: test  99.30 99.99
+Epoch 95: LR    1.084e-03
+
+Epoch 96: train 100.00 100.00
+Epoch 96: test  99.31 99.99
+Epoch 96: LR    1.060e-03
+
+Epoch 97: train 100.00 100.00
+Epoch 97: test  99.32 99.99
+Epoch 97: LR    1.035e-03
+
+Epoch 98: train 100.00 100.00
+Epoch 98: test  99.32 99.99
+Epoch 98: LR    1.012e-03
+
+Epoch 99: train 100.00 100.00
+Epoch 99: test  99.30 99.99
+Epoch 99: LR    9.885e-04
+
+Epoch 100: train 100.00 100.00
+Epoch 100: test  99.31 99.99
+Epoch 100: LR    9.659e-04
+
+Epoch 101: train 100.00 100.00
+Epoch 101: test  99.31 99.99
+Epoch 101: LR    9.438e-04
+
+Epoch 102: train 100.00 100.00
+Epoch 102: test  99.31 99.99
+Epoch 102: LR    9.222e-04
+
+Epoch 103: train 100.00 100.00
+Epoch 103: test  99.31 99.99
+Epoch 103: LR    9.011e-04
+
+Epoch 104: train 100.00 100.00
+Epoch 104: test  99.31 99.99
+Epoch 104: LR    8.805e-04
+
+Epoch 105: train 100.00 100.00
+Epoch 105: test  99.31 99.99
+Epoch 105: LR    8.603e-04
+
+Epoch 106: train 100.00 100.00
+Epoch 106: test  99.32 99.99
+Epoch 106: LR    8.407e-04
+
+Epoch 107: train 100.00 100.00
+Epoch 107: test  99.31 99.99
+Epoch 107: LR    8.214e-04
+
+Epoch 108: train 100.00 100.00
+Epoch 108: test  99.31 99.99
+Epoch 108: LR    8.026e-04
+
+Epoch 109: train 100.00 100.00
+Epoch 109: test  99.30 99.99
+Epoch 109: LR    7.843e-04
+
+Epoch 110: train 100.00 100.00
+Epoch 110: test  99.32 99.99
+Epoch 110: LR    7.663e-04
+
+Epoch 111: train 100.00 100.00
+Epoch 111: test  99.30 99.99
+Epoch 111: LR    7.488e-04
+
+Epoch 112: train 100.00 100.00
+Epoch 112: test  99.30 99.99
+Epoch 112: LR    7.317e-04
+
+Epoch 113: train 100.00 100.00
+Epoch 113: test  99.32 99.99
+Epoch 113: LR    7.149e-04
+
+Epoch 114: train 100.00 100.00
+Epoch 114: test  99.30 99.99
+Epoch 114: LR    6.986e-04
+
+Epoch 115: train 100.00 100.00
+Epoch 115: test  99.30 99.99
+Epoch 115: LR    6.826e-04
+
+Epoch 116: train 100.00 100.00
+Epoch 116: test  99.30 99.99
+Epoch 116: LR    6.670e-04
+
+Epoch 117: train 100.00 100.00
+Epoch 117: test  99.31 99.99
+Epoch 117: LR    6.517e-04
+
+Epoch 118: train 100.00 100.00
+Epoch 118: test  99.29 99.98
+Epoch 118: LR    6.368e-04
+
+Epoch 119: train 100.00 100.00
+Epoch 119: test  99.30 99.98
+Epoch 119: LR    6.223e-04
+
+Epoch 120: train 100.00 100.00
+Epoch 120: test  99.30 99.98
+Epoch 120: LR    6.080e-04
+
+Epoch 121: train 100.00 100.00
+Epoch 121: test  99.30 99.98
+Epoch 121: LR    5.941e-04
+
+Epoch 122: train 100.00 100.00
+Epoch 122: test  99.29 99.98
+Epoch 122: LR    5.805e-04
+
+Epoch 123: train 100.00 100.00
+Epoch 123: test  99.30 99.98
+Epoch 123: LR    5.672e-04
+
+Epoch 124: train 100.00 100.00
+Epoch 124: test  99.29 99.98
+Epoch 124: LR    5.543e-04
+
+Epoch 125: train 100.00 100.00
+Epoch 125: test  99.29 99.98
+Epoch 125: LR    5.416e-04
+
+Epoch 126: train 100.00 100.00
+Epoch 126: test  99.30 99.98
+Epoch 126: LR    5.292e-04
+
+Epoch 127: train 100.00 100.00
+Epoch 127: test  99.30 99.98
+Epoch 127: LR    5.171e-04
+
+Epoch 128: train 100.00 100.00
+Epoch 128: test  99.30 99.98
+Epoch 128: LR    5.053e-04
+
+Epoch 129: train 100.00 100.00
+Epoch 129: test  99.30 99.98
+Epoch 129: LR    4.937e-04
+
+Epoch 130: train 100.00 100.00
+Epoch 130: test  99.29 99.98
+Epoch 130: LR    4.824e-04
+
+Epoch 131: train 100.00 100.00
+Epoch 131: test  99.29 99.98
+Epoch 131: LR    4.714e-04
+
+Epoch 132: train 100.00 100.00
+Epoch 132: test  99.30 99.98
+Epoch 132: LR    4.606e-04
+
+Epoch 133: train 100.00 100.00
+Epoch 133: test  99.30 99.98
+Epoch 133: LR    4.501e-04
+
+Epoch 134: train 100.00 100.00
+Epoch 134: test  99.29 99.98
+Epoch 134: LR    4.398e-04
+
+Epoch 135: train 100.00 100.00
+Epoch 135: test  99.28 99.98
+Epoch 135: LR    4.297e-04
+
+Epoch 136: train 100.00 100.00
+Epoch 136: test  99.29 99.98
+Epoch 136: LR    4.199e-04
+
+Epoch 137: train 100.00 100.00
+Epoch 137: test  99.29 99.98
+Epoch 137: LR    4.103e-04
+
+Epoch 138: train 100.00 100.00
+Epoch 138: test  99.29 99.98
+Epoch 138: LR    4.009e-04
+
+Epoch 139: train 100.00 100.00
+Epoch 139: test  99.29 99.98
+Epoch 139: LR    3.917e-04
+
+Epoch 140: train 100.00 100.00
+Epoch 140: test  99.28 99.98
+Epoch 140: LR    3.827e-04
+
+Epoch 141: train 100.00 100.00
+Epoch 141: test  99.29 99.98
+Epoch 141: LR    3.740e-04
+
+Epoch 142: train 100.00 100.00
+Epoch 142: test  99.29 99.98
+Epoch 142: LR    3.654e-04
+
+Epoch 143: train 100.00 100.00
+Epoch 143: test  99.29 99.98
+Epoch 143: LR    3.571e-04
+
+Epoch 144: train 100.00 100.00
+Epoch 144: test  99.29 99.98
+Epoch 144: LR    3.489e-04
+
+Epoch 145: train 100.00 100.00
+Epoch 145: test  99.29 99.98
+Epoch 145: LR    3.409e-04
+
+Epoch 146: train 100.00 100.00
+Epoch 146: test  99.29 99.98
+Epoch 146: LR    3.331e-04
+
+Epoch 147: train 100.00 100.00
+Epoch 147: test  99.29 99.98
+Epoch 147: LR    3.255e-04
+
+Epoch 148: train 100.00 100.00
+Epoch 148: test  99.29 99.98
+Epoch 148: LR    3.181e-04
+
+Epoch 149: train 100.00 100.00
+Epoch 149: test  99.29 99.98
+Epoch 149: LR    3.108e-04
+
+Epoch 150: train 100.00 100.00
+Epoch 150: test  99.28 99.98
+Epoch 150: LR    3.037e-04
+
+Epoch 151: train 100.00 100.00
+Epoch 151: test  99.28 99.98
+Epoch 151: LR    2.967e-04
+
+Epoch 152: train 100.00 100.00
+Epoch 152: test  99.28 99.98
+Epoch 152: LR    2.899e-04
+
+Epoch 153: train 100.00 100.00
+Epoch 153: test  99.28 99.98
+Epoch 153: LR    2.833e-04
+
+Epoch 154: train 100.00 100.00
+Epoch 154: test  99.28 99.98
+Epoch 154: LR    2.768e-04
+
+Epoch 155: train 100.00 100.00
+Epoch 155: test  99.28 99.98
+Epoch 155: LR    2.705e-04
+
+Epoch 156: train 100.00 100.00
+Epoch 156: test  99.28 99.98
+Epoch 156: LR    2.643e-04
+
+Epoch 157: train 100.00 100.00
+Epoch 157: test  99.28 99.98
+Epoch 157: LR    2.583e-04
+
+Epoch 158: train 100.00 100.00
+Epoch 158: test  99.28 99.98
+Epoch 158: LR    2.524e-04
+
+Epoch 159: train 100.00 100.00
+Epoch 159: test  99.28 99.98
+Epoch 159: LR    2.466e-04
+
+Epoch 160: train 100.00 100.00
+Epoch 160: test  99.28 99.98
+Epoch 160: LR    2.409e-04
+
+Epoch 161: train 100.00 100.00
+Epoch 161: test  99.28 99.98
+Epoch 161: LR    2.354e-04
+
+Epoch 162: train 100.00 100.00
+Epoch 162: test  99.28 99.98
+Epoch 162: LR    2.300e-04
+
+Epoch 163: train 100.00 100.00
+Epoch 163: test  99.29 99.98
+Epoch 163: LR    2.248e-04
+
+Epoch 164: train 100.00 100.00
+Epoch 164: test  99.29 99.98
+Epoch 164: LR    2.196e-04
+
+Epoch 165: train 100.00 100.00
+Epoch 165: test  99.28 99.98
+Epoch 165: LR    2.146e-04
+
+Epoch 166: train 100.00 100.00
+Epoch 166: test  99.29 99.98
+Epoch 166: LR    2.097e-04
+
+Epoch 167: train 100.00 100.00
+Epoch 167: test  99.28 99.98
+Epoch 167: LR    2.049e-04
+
+Epoch 168: train 100.00 100.00
+Epoch 168: test  99.29 99.98
+Epoch 168: LR    2.002e-04
+
+Epoch 169: train 100.00 100.00
+Epoch 169: test  99.29 99.98
+Epoch 169: LR    1.956e-04
+
+Epoch 170: train 100.00 100.00
+Epoch 170: test  99.29 99.98
+Epoch 170: LR    1.912e-04
+
+Epoch 171: train 100.00 100.00
+Epoch 171: test  99.29 99.98
+Epoch 171: LR    1.868e-04
+
+Epoch 172: train 100.00 100.00
+Epoch 172: test  99.29 99.98
+Epoch 172: LR    1.825e-04
+
+Epoch 173: train 100.00 100.00
+Epoch 173: test  99.29 99.98
+Epoch 173: LR    1.783e-04
+
+Epoch 174: train 100.00 100.00
+Epoch 174: test  99.29 99.98
+Epoch 174: LR    1.743e-04
+
+Epoch 175: train 100.00 100.00
+Epoch 175: test  99.29 99.98
+Epoch 175: LR    1.703e-04
+
+Epoch 176: train 100.00 100.00
+Epoch 176: test  99.29 99.98
+Epoch 176: LR    1.664e-04
+
+Epoch 177: train 100.00 100.00
+Epoch 177: test  99.29 99.98
+Epoch 177: LR    1.626e-04
+
+Epoch 178: train 100.00 100.00
+Epoch 178: test  99.29 99.98
+Epoch 178: LR    1.589e-04
+
+Epoch 179: train 100.00 100.00
+Epoch 179: test  99.29 99.98
+Epoch 179: LR    1.552e-04
+
+Epoch 180: train 100.00 100.00
+Epoch 180: test  99.29 99.98
+Epoch 180: LR    1.517e-04
+
+Epoch 181: train 100.00 100.00
+Epoch 181: test  99.30 99.98
+Epoch 181: LR    1.482e-04
+
+Epoch 182: train 100.00 100.00
+Epoch 182: test  99.29 99.98
+Epoch 182: LR    1.448e-04
+
+Epoch 183: train 100.00 100.00
+Epoch 183: test  99.30 99.98
+Epoch 183: LR    1.415e-04
+
+Epoch 184: train 100.00 100.00
+Epoch 184: test  99.29 99.98
+Epoch 184: LR    1.383e-04
+
+Epoch 185: train 100.00 100.00
+Epoch 185: test  99.30 99.98
+Epoch 185: LR    1.351e-04
+
+Epoch 186: train 100.00 100.00
+Epoch 186: test  99.29 99.98
+Epoch 186: LR    1.320e-04
+
+Epoch 187: train 100.00 100.00
+Epoch 187: test  99.29 99.98
+Epoch 187: LR    1.290e-04
+
+Epoch 188: train 100.00 100.00
+Epoch 188: test  99.30 99.98
+Epoch 188: LR    1.260e-04
+
+Epoch 189: train 100.00 100.00
+Epoch 189: test  99.29 99.98
+Epoch 189: LR    1.232e-04
+
+Epoch 190: train 100.00 100.00
+Epoch 190: test  99.29 99.98
+Epoch 190: LR    1.203e-04
+
+Epoch 191: train 100.00 100.00
+Epoch 191: test  99.30 99.98
+Epoch 191: LR    1.176e-04
+
+Epoch 192: train 100.00 100.00
+Epoch 192: test  99.29 99.98
+Epoch 192: LR    1.149e-04
+
+Epoch 193: train 100.00 100.00
+Epoch 193: test  99.29 99.98
+Epoch 193: LR    1.123e-04
+
+Epoch 194: train 100.00 100.00
+Epoch 194: test  99.30 99.98
+Epoch 194: LR    1.097e-04
+
+Epoch 195: train 100.00 100.00
+Epoch 195: test  99.29 99.98
+Epoch 195: LR    1.072e-04
+
+Epoch 196: train 100.00 100.00
+Epoch 196: test  99.29 99.98
+Epoch 196: LR    1.047e-04
+
+Epoch 197: train 100.00 100.00
+Epoch 197: test  99.29 99.98
+Epoch 197: LR    1.023e-04
+
+Epoch 198: train 100.00 100.00
+Epoch 198: test  99.29 99.98
+Epoch 198: LR    1.000e-04
+
+Epoch 199: train 100.00 100.00
+Epoch 199: test  99.30 99.98
+Epoch 199: LR    9.771e-05
+

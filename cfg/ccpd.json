@@ -1,6 +1,6 @@
 {
   "DATASET": "ccpd",
-  "MODEL": "model.mine.ResNet",
+  "MODEL": "model.mine.RESNET",
   "MODEL_PARAM": {
     "img_size": [
       256,

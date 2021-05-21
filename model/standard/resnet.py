@@ -1,6 +1,6 @@
-'''ResNet in PyTorch.
+'''RESNET in PyTorch.
 
-For Pre-activation ResNet, see 'preact_resnet.py'.
+For Pre-activation RESNET, see 'preact_resnet.py'.
 
 Reference:
 [1] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
