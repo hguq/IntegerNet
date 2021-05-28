@@ -11,7 +11,7 @@
   },
   "SAVE_PREFIX": "imagenet_vgg",
   "EPOCHS": 10,
-  "BATCH_SIZE": 512,
+  "BATCH_SIZE": 128,
   "LR": 0.01,
   "USE_LR_SCH": 1,
   "LR_FIN": 0.0001

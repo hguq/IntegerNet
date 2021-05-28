@@ -2,6 +2,7 @@ import numpy as np
 import math
 import torch
 from typing import Tuple
+from torchsummary import summary
 
 from layer.quantize import QuantizeFc, QuantizeConv, QuantizeActSBN
 from torch.nn.modules import MaxPool2d, ReLU
@@ -251,6 +252,9 @@ def save_raw_parameter(net, file_path):
 
 
 if __name__ == "__main__":
+    net = torch.load("net.pth").cpu()
+    net.train()
+    summary(net, input_size=[(1, 28, 28)], batch_size=1, device="cpu")
     net = torch.load("net.pth").cpu()
     net.eval()
     with torch.no_grad():
