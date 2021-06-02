@@ -1,4 +1,4 @@
-Correlated paper: on arxiv
+Correlated paper: https://arxiv.org/pdf/2106.00127.pdf
 
 Please add the this folder to PYTHONPATH before running any code.
 
